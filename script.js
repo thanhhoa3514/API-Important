@@ -120,12 +120,57 @@ import { checkOddNumber } from "./helpers/checkChanLe.js";
 
 
 // Fetch API calls
-fetch("https://dummyjson.com/products")
-    .then(response=>response.json())
-    .then(data=>{
-        console.log(data.products);
+    // fetch("https://dummyjson.com/products")
+    //     .then(response=>response.json())
+    //     .then(data=>{
+    //         console.log(data.products);
 
-        const newArray=data.products.map((item)=>{
+    //         const newArray=data.products.map((item)=>{
+    //             return `
+    //             <div class"product-item">
+    //                 <img src="${item.thumbnail}" />
+    //                 <h2>
+    //                     ${item.title}
+    //                 </h2>
+    //                 <h3>${item.price}$</h3>  
+    //                 <div>${item.tags}</div> 
+    //                 // <div>${item.reviews}</div> 
+        
+    //             </div>`;
+    //         });
+
+    //         const html=newArray.join("");// join array to string
+
+    //         console.log(html); // Console log string
+
+    //         const productsList=document.querySelector("#product-list")
+    //         productsList.innerHTML=html; // Update HTML list with new data
+
+    //         // console.log(newArray);
+
+    //     })    
+
+
+
+// async and await
+const fetAPI= async (api)=>{
+    const response= await fetch(api);
+    const data= await response.json();
+    // console.log(data);
+    return data;
+
+}
+
+    // fetAPI("https://dummyjson.com/products")
+    // .then((data)=>{
+    //     console.log(data);
+    // });
+        
+
+    fetAPI("http://localhost:3000/products")
+    .then((data)=>{
+        // console.log(data);
+        const newArray=data.map((item)=>{
             return `
             <div class"product-item">
                 <img src="${item.thumbnail}" />
@@ -135,18 +180,14 @@ fetch("https://dummyjson.com/products")
                 <h3>${item.price}$</h3>  
                 <div>${item.tags}</div> 
                 // <div>${item.reviews}</div> 
-      
+    
             </div>`;
         });
 
         const html=newArray.join("");// join array to string
 
-        console.log(html); // Console log string
+        // console.log(html); // Console log string
 
         const productsList=document.querySelector("#product-list")
-        productsList.innerHTML=html; // Update HTML list with new data
-
-        // console.log(newArray);
-
-    })    
-        
+        productsList.innerHTML=html;
+    });
